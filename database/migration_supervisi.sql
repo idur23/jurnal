@@ -44,6 +44,7 @@ CREATE TABLE IF NOT EXISTS `supervisi_indikator` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /* Populate Form 1 Indikator */
+SET FOREIGN_KEY_CHECKS = 0;
 DELETE FROM `supervisi_indikator` WHERE `form_id` = 1;
 
 INSERT INTO `supervisi_indikator` (`form_id`, `sub_bagian`, `nomor_urut`, `kode_indikator`, `nama_indikator`) VALUES
@@ -59,8 +60,10 @@ INSERT INTO `supervisi_indikator` (`form_id`, `sub_bagian`, `nomor_urut`, `kode_
 (1, 'Administrasi Perencanaan', 10, 'F1_10', 'Absensi Siswa'),
 (1, 'Administrasi Perencanaan', 11, 'F1_11', 'Buku Pegangan Guru'),
 (1, 'Administrasi Perencanaan', 12, 'F1_12', 'Buku Teks Siswa');
+SET FOREIGN_KEY_CHECKS = 1;
 
 /* Populate Form 2 Indikator */
+SET FOREIGN_KEY_CHECKS = 0;
 DELETE FROM `supervisi_indikator` WHERE `form_id` = 2;
 
 INSERT INTO `supervisi_indikator` (`form_id`, `sub_bagian`, `nomor_urut`, `kode_indikator`, `nama_indikator`) VALUES
@@ -80,8 +83,10 @@ INSERT INTO `supervisi_indikator` (`form_id`, `sub_bagian`, `nomor_urut`, `kode_
 (2, 'Komponen Modul/RPP', 14, 'F2_10', 'Media/alat'),
 (2, 'Komponen Modul/RPP', 15, 'F2_11', 'Bahan'),
 (2, 'Komponen Modul/RPP', 16, 'F2_12', 'Sumber belajar');
+SET FOREIGN_KEY_CHECKS = 1;
 
 /* Populate Form 3 Indikator */
+SET FOREIGN_KEY_CHECKS = 0;
 DELETE FROM `supervisi_indikator` WHERE `form_id` = 3;
 
 INSERT INTO `supervisi_indikator` (`form_id`, `sub_bagian`, `nomor_urut`, `kode_indikator`, `nama_indikator`) VALUES
@@ -126,8 +131,10 @@ INSERT INTO `supervisi_indikator` (`form_id`, `sub_bagian`, `nomor_urut`, `kode_
 (3, 'B.8 Guru Menggunakan Bahasa yang Benar dan Tepat', 39, 'F3_B803', 'Menyampaikan pesan dan gaya yang sesuai'),
 (3, 'C. Kegiatan Penutup', 40, 'F3_C101', 'Melakukan refleksi secara efektif'),
 (3, 'C. Kegiatan Penutup', 41, 'F3_C102', 'Memberikan tindak lanjut');
+SET FOREIGN_KEY_CHECKS = 1;
 
 /* Populate Form 4 Indikator */
+SET FOREIGN_KEY_CHECKS = 0;
 DELETE FROM `supervisi_indikator` WHERE `form_id` = 4;
 
 INSERT INTO `supervisi_indikator` (`form_id`, `sub_bagian`, `nomor_urut`, `kode_indikator`, `nama_indikator`) VALUES
@@ -151,6 +158,7 @@ INSERT INTO `supervisi_indikator` (`form_id`, `sub_bagian`, `nomor_urut`, `kode_
 (4, 'Instrumen Penilaian', 18, 'F4_07', 'Pengayaan'),
 (4, 'Instrumen Penilaian', 19, 'F4_08', 'Analisis PH, PTS, PAS, dan PAT'),
 (4, 'Instrumen Penilaian', 20, 'F4_09', 'Bank Soal');
+SET FOREIGN_KEY_CHECKS = 1;
 
 /* 4. Create Main Supervisi Table */
 CREATE TABLE IF NOT EXISTS `supervisi` (
