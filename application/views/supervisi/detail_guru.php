@@ -150,6 +150,11 @@
                     <a href="<?= base_url('supervisi/export_pdf/' . $h['id']) ?>" target="_blank" class="btn btn-sm btn-outline-danger" title="Download PDF">
                       <i class="ti ti-file-pdf"></i>
                     </a>
+                    <?php if (in_array($user_role, array('admin', 'superadmin', 'kamad', 'waka'))): ?>
+                      <button type="button" class="btn btn-sm btn-outline-danger btn-delete-supervisi" data-id="<?= $h['id'] ?>" data-name="<?= html_escape($h['nama_form']) ?>" title="Hapus Supervisi">
+                        <i class="ti ti-trash"></i>
+                      </button>
+                    <?php endif; ?>
                   </div>
                 </td>
               </tr>

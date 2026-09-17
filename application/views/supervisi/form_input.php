@@ -289,23 +289,36 @@
     </div>
 
     <!-- Sticky Bottom Action Bar -->
-    <?php if (empty($supervisi) || $supervisi['status'] != 'SELESAI'): ?>
-      <div class="fixed-bottom bg-white border-top shadow-lg py-3 d-print-none">
-        <div class="container-xl d-flex align-items-center justify-content-between">
-          <a href="<?= base_url('supervisi/guru') ?>" class="btn btn-outline-secondary">
-            <i class="ti ti-arrow-left me-1"></i> Batal / Kembali
-          </a>
-          <div class="btn-list">
+    <div class="fixed-bottom bg-white border-top shadow-lg py-3 d-print-none">
+      <div class="container-xl d-flex align-items-center justify-content-between">
+        <a href="<?= base_url('supervisi/rekap') ?>" class="btn btn-outline-secondary">
+          <i class="ti ti-arrow-left me-1"></i> Batal / Kembali
+        </a>
+        <div class="btn-list">
+          <?php if (!empty($supervisi_id) && $supervisi_id > 0 && in_array($this->current_user['role_code'] ?? '', array('admin', 'superadmin', 'kamad', 'waka'))): ?>
+            <button type="button" class="btn btn-outline-danger btn-delete-supervisi px-3" data-id="<?= $supervisi_id ?>" data-name="Supervisi <?= html_escape($form_info['nama_form']) ?>">
+              <i class="ti ti-trash me-1"></i> Hapus Supervisi
+            </button>
+          <?php endif; ?>
+
+          <?php if (empty($supervisi) || $supervisi['status'] != 'SELESAI' || in_array($this->current_user['role_code'] ?? '', array('admin', 'superadmin'))): ?>
             <button type="button" id="btnSaveDraft" class="btn btn-warning px-4">
               <i class="ti ti-device-floppy me-1"></i> Simpan Draft
             </button>
             <button type="button" id="btnSubmitSupervisi" class="btn btn-success px-4">
               <i class="ti ti-send me-1"></i> Submit & Selesaikan Supervisi
             </button>
-          </div>
+          <?php else: ?>
+            <a href="<?= base_url('supervisi/print_form/' . $supervisi_id) ?>" target="_blank" class="btn btn-outline-primary">
+              <i class="ti ti-printer me-1"></i> Cetak Fisik
+            </a>
+            <a href="<?= base_url('supervisi/export_pdf/' . $supervisi_id) ?>" target="_blank" class="btn btn-outline-danger">
+              <i class="ti ti-file-pdf me-1"></i> Export PDF
+            </a>
+          <?php endif; ?>
         </div>
       </div>
-    <?php endif; ?>
+    </div>
   </form>
 </div>
 

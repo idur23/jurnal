@@ -148,6 +148,33 @@
                 }
             });
         });
+
+        // Universal SweetAlert2 Handler for Delete Supervisi Buttons
+        $(document).on('click', '.btn-delete-supervisi', function(e) {
+            e.preventDefault();
+            var $btn = $(this);
+            var id = $btn.data('id');
+            var name = $btn.data('name') || 'data supervisi ini';
+
+            if (!id) return;
+
+            Swal.fire({
+                title: 'Hapus Supervisi Akademik?',
+                text: 'Apakah Anda yakin ingin menghapus ' + name + '? Seluruh skor penilaian dan catatan instrumen ini akan dihapus permanen.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#ef4444',
+                cancelButtonColor: '#64748b',
+                confirmButtonText: '<i class="ti ti-trash me-1"></i> Ya, Hapus Permanen!',
+                cancelButtonText: 'Batal',
+                reverseButtons: true,
+                focusCancel: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '<?= base_url("supervisi/delete/") ?>' + id;
+                }
+            });
+        });
       });
     </script>
   </body>

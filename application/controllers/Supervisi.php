@@ -436,6 +436,53 @@ class Supervisi extends MY_Controller {
         redirect('supervisi/rekap');
     }
 
+    // Delete Supervisi Assessment
+    public function delete($id = NULL) {
+        $role = $this->current_user['role_code'] ?? '';
+        if (!in_array($role, array('admin', 'superadmin', 'kamad', 'waka'))) {
+            if ($this->input->is_ajax_request()) {
+                echo json_encode(array('status' => 'error', 'message' => 'Anda tidak memiliki hak akses untuk menghapus data supervisi.'));
+                return;
+            }
+            show_error('Akses Ditolak: Hanya Kepala Madrasah dan Waka Kurikulum yang dapat menghapus data supervisi.', 403);
+            return;
+        }
+
+        if (!$id) {
+            $id = (int)$this->input->post('supervisi_id');
+        }
+
+        $supervisi = $this->supervisi_m->get_supervisi_by_id($id);
+        if (!$supervisi) {
+            if ($this->input->is_ajax_request()) {
+                echo json_encode(array('status' => 'error', 'message' => 'Data supervisi tidak ditemukan.'));
+                return;
+            }
+            show_404();
+            return;
+        }
+
+        $result = $this->supervisi_m->delete_supervisi($id, $this->current_user['id'], $role);
+
+        if ($this->input->is_ajax_request()) {
+            if ($result) {
+                echo json_encode(array('status' => 'success', 'message' => 'Data supervisi berhasil dihapus.'));
+            } else {
+                echo json_encode(array('status' => 'error', 'message' => 'Gagal menghapus data supervisi.'));
+            }
+            return;
+        }
+
+        if ($result) {
+            $this->session->set_flashdata('success', 'Data supervisi berhasil dihapus.');
+        } else {
+            $this->session->set_flashdata('error', 'Gagal menghapus data supervisi.');
+        }
+
+        $redirect_url = $this->input->get('redirect') ? $this->input->get('redirect') : 'supervisi/rekap';
+        redirect($redirect_url);
+    }
+
     // ============================================================
     // 9. EXPORT PDF (DOMPDF)
     // ============================================================

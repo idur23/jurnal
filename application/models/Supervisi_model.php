@@ -503,6 +503,34 @@ class Supervisi_model extends MY_Model {
         return TRUE;
     }
 
+    // Delete Supervisi Assessment Data
+    public function delete_supervisi($id, $user_id, $user_role) {
+        $supervisi = $this->get_supervisi_by_id($id);
+        if (!$supervisi) return FALSE;
+
+        $this->db->trans_start();
+
+        // Delete related detail items, history, and notifications
+        $this->db->where('supervisi_id', $id)->delete('supervisi_detail');
+        $this->db->where('supervisi_id', $id)->delete('supervisi_histori');
+        $this->db->where('supervisi_id', $id)->delete('supervisi_notifikasi');
+        $this->db->where('id', $id)->delete('supervisi');
+
+        // Log activity if table exists
+        if ($this->db->table_exists('activity_logs')) {
+            $this->db->insert('activity_logs', array(
+                'user_id' => $user_id,
+                'action' => 'DELETE_SUPERVISI',
+                'description' => 'Menghapus data supervisi #' . $id . ' (' . ($supervisi['kode_form'] ?? '') . ') guru ' . ($supervisi['nama_guru'] ?? ''),
+                'ip_address' => $this->input->ip_address(),
+                'user_agent' => substr($this->input->user_agent(), 0, 255)
+            ));
+        }
+
+        $this->db->trans_complete();
+        return $this->db->trans_status();
+    }
+
     // Helper: Link to Teacher's Uploaded Teaching Documents
     public function get_teacher_documents($guru_id, $mapel_id = NULL) {
         $this->db->select('perangkat_ajar.*, mata_pelajaran.nama_mapel, kelas.nama_kelas');
