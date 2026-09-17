@@ -1,9 +1,11 @@
--- ============================================================
--- MIGRATION SUPERVISI AKADEMIK
--- Role Kepala Madrasah & Waka Kurikulum
--- ============================================================
+/* ============================================================ */
+/* MIGRATION SUPERVISI AKADEMIK                                 */
+/* Role Kepala Madrasah & Waka Kurikulum                        */
+/* ============================================================ */
 
--- 1. Ensure Roles Exist
+SET FOREIGN_KEY_CHECKS = 0;
+
+/* 1. Ensure Roles Exist */
 INSERT INTO `roles` (`id`, `role_code`, `role_name`, `description`) 
 VALUES (4, 'kamad', 'Kepala Madrasah', 'Monitoring KBM, Kehadiran Kelas, dan Supervisi Akademik')
 ON DUPLICATE KEY UPDATE `role_name` = 'Kepala Madrasah', `description` = 'Monitoring KBM, Kehadiran Kelas, dan Supervisi Akademik';
@@ -12,7 +14,7 @@ INSERT INTO `roles` (`id`, `role_code`, `role_name`, `description`)
 VALUES (5, 'waka', 'Waka Kurikulum', 'Monitoring, evaluasi, verifikasi perangkat ajar, dan supervisi akademik')
 ON DUPLICATE KEY UPDATE `role_name` = 'Waka Kurikulum', `description` = 'Monitoring, evaluasi, verifikasi perangkat ajar, dan supervisi akademik';
 
--- 2. Create Master Form Table
+/* 2. Create Master Form Table */
 CREATE TABLE IF NOT EXISTS `supervisi_form` (
   `id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   `kode_form` VARCHAR(20) NOT NULL UNIQUE,
@@ -28,7 +30,7 @@ INSERT INTO `supervisi_form` (`id`, `kode_form`, `nama_form`, `deskripsi`) VALUE
 (4, 'FORM_4', 'FORM 4: SUPERVISI PENILAIAN (PROSES DAN HASIL BELAJAR PESERTA DIDIK)', 'Pemeriksaan kelengkapan instrumen dan dokumen penilaian hasil belajar')
 ON DUPLICATE KEY UPDATE `nama_form` = VALUES(`nama_form`), `deskripsi` = VALUES(`deskripsi`);
 
--- 3. Create Master Indikator Table
+/* 3. Create Master Indikator Table */
 CREATE TABLE IF NOT EXISTS `supervisi_indikator` (
   `id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   `form_id` INT UNSIGNED NOT NULL,
@@ -41,8 +43,9 @@ CREATE TABLE IF NOT EXISTS `supervisi_indikator` (
   FOREIGN KEY (`form_id`) REFERENCES `supervisi_form` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Populate Form 1 Indikator
+/* Populate Form 1 Indikator */
 DELETE FROM `supervisi_indikator` WHERE `form_id` = 1;
+
 INSERT INTO `supervisi_indikator` (`form_id`, `sub_bagian`, `nomor_urut`, `kode_indikator`, `nama_indikator`) VALUES
 (1, 'Administrasi Perencanaan', 1, 'F1_01', 'Kalender Pendidikan'),
 (1, 'Administrasi Perencanaan', 2, 'F1_02', 'Program Tahunan'),
@@ -57,8 +60,9 @@ INSERT INTO `supervisi_indikator` (`form_id`, `sub_bagian`, `nomor_urut`, `kode_
 (1, 'Administrasi Perencanaan', 11, 'F1_11', 'Buku Pegangan Guru'),
 (1, 'Administrasi Perencanaan', 12, 'F1_12', 'Buku Teks Siswa');
 
--- Populate Form 2 Indikator
+/* Populate Form 2 Indikator */
 DELETE FROM `supervisi_indikator` WHERE `form_id` = 2;
+
 INSERT INTO `supervisi_indikator` (`form_id`, `sub_bagian`, `nomor_urut`, `kode_indikator`, `nama_indikator`) VALUES
 (2, 'Komponen Modul/RPP', 1, 'F2_01', 'Identitas Madrasah'),
 (2, 'Komponen Modul/RPP', 2, 'F2_02', 'Capaian Pembelajaran'),
@@ -77,72 +81,55 @@ INSERT INTO `supervisi_indikator` (`form_id`, `sub_bagian`, `nomor_urut`, `kode_
 (2, 'Komponen Modul/RPP', 15, 'F2_11', 'Bahan'),
 (2, 'Komponen Modul/RPP', 16, 'F2_12', 'Sumber belajar');
 
--- Populate Form 3 Indikator
+/* Populate Form 3 Indikator */
 DELETE FROM `supervisi_indikator` WHERE `form_id` = 3;
+
 INSERT INTO `supervisi_indikator` (`form_id`, `sub_bagian`, `nomor_urut`, `kode_indikator`, `nama_indikator`) VALUES
--- A. Pendahuluan
 (3, 'A. Kegiatan Pendahuluan', 1, 'F3_A01', 'Melakukan apersepsi dan motivasi'),
 (3, 'A. Kegiatan Pendahuluan', 2, 'F3_A02', 'Menyiapkan fisik dan psikis peserta dalam mengawali kegiatan pembelajaran'),
 (3, 'A. Kegiatan Pendahuluan', 3, 'F3_A03', 'Mengaitkan materi pembelajaran sekarang dengan pengalaman peserta didik dalam perjalanan menuju sekolah atau dengan tema sebelumnya'),
 (3, 'A. Kegiatan Pendahuluan', 4, 'F3_A04', 'Mengajukan pertanyaan yang ada keterkaitan dengan tema yang dibelajarkan'),
 (3, 'A. Kegiatan Pendahuluan', 5, 'F3_A05', 'Mengajak peserta didik berdinamika melakukan sesuatu kegiatan yang terkait dengan materi'),
-
--- B.1 Guru menguasai materi yang diajarkan
 (3, 'B.1 Guru Menguasai Materi yang Diajarkan', 6, 'F3_B101', 'Kemampuan menyesuaikan materi dengan tujuan pembelajaran'),
 (3, 'B.1 Guru Menguasai Materi yang Diajarkan', 7, 'F3_B102', 'Kemampuan mengaitkan materi dengan pengetahuan lain yang diintegrasikan secara relevan dengan perkembangan, Iptek, dan kehidupan nyata'),
 (3, 'B.1 Guru Menguasai Materi yang Diajarkan', 8, 'F3_B103', 'Menyajikan materi dalam tema secara sistematis dan gradasi (dari yang mudah ke sulit, dari konkret ke abstrak)'),
-
--- B.2 Guru menerapkan strategi pembelajaran yang mendidik
 (3, 'B.2 Guru Menerapkan Strategi Pembelajaran yang Mendidik', 9, 'F3_B201', 'Melaksanakan pembelajaran sesuai dengan kompetensi yang akan dicapai'),
 (3, 'B.2 Guru Menerapkan Strategi Pembelajaran yang Mendidik', 10, 'F3_B202', 'Melakukan pembelajaran secara urut'),
 (3, 'B.2 Guru Menerapkan Strategi Pembelajaran yang Mendidik', 11, 'F3_B203', 'Menguasai kelas dengan baik'),
 (3, 'B.2 Guru Menerapkan Strategi Pembelajaran yang Mendidik', 12, 'F3_B204', 'Melaksanakan pembelajaran yang bersifat kontekstual'),
 (3, 'B.2 Guru Menerapkan Strategi Pembelajaran yang Mendidik', 13, 'F3_B205', 'Melaksanakan pembelajaran yang memungkinkan tumbuhnya kebiasaan positif (nurturant effect)'),
 (3, 'B.2 Guru Menerapkan Strategi Pembelajaran yang Mendidik', 14, 'F3_B206', 'Melaksanakan pembelajaran sesuai dengan alokasi waktu yang direncanakan'),
-
--- B.3 Guru menerapkan pendekatan saintifik
 (3, 'B.3 Guru Menerapkan Pendekatan Saintifik', 15, 'F3_B301', 'Menyajikan topik atau materi yang mendorong peserta didik melakukan kegiatan mengamati'),
 (3, 'B.3 Guru Menerapkan Pendekatan Saintifik', 16, 'F3_B302', 'Memancing peserta didik untuk bertanya'),
 (3, 'B.3 Guru Menerapkan Pendekatan Saintifik', 17, 'F3_B303', 'Menyajikan kegiatan yang mendorong peserta didik untuk mengumpulkan informasi atau data'),
 (3, 'B.3 Guru Menerapkan Pendekatan Saintifik', 18, 'F3_B304', 'Menyajikan kegiatan yang mendorong peserta didik untuk mengasosiasikan/mengolah informasi'),
 (3, 'B.3 Guru Menerapkan Pendekatan Saintifik', 19, 'F3_B305', 'Menyajikan kegiatan yang mendorong peserta didik untuk terampil mengomunikasikan hasil secara lisan maupun tertulis'),
-
--- B.4 Aspek yang diamati
 (3, 'B.4 Aspek yang Diamati', 20, 'F3_B401', 'Memancing peserta didik untuk bertanya'),
 (3, 'B.4 Aspek yang Diamati', 21, 'F3_B402', 'Menyajikan kegiatan yang mendorong peserta didik untuk mengumpulkan informasi/data'),
 (3, 'B.4 Aspek yang Diamati', 22, 'F3_B403', 'Menyajikan kegiatan yang mendorong peserta didik untuk mengasosiasikan/mengolah informasi'),
 (3, 'B.4 Aspek yang Diamati', 23, 'F3_B404', 'Menyajikan kegiatan yang mendorong peserta didik untuk terampil mengomunikasikan hasil secara lisan maupun tertulis'),
-
--- B.5 Guru melaksanakan penilaian autentik
 (3, 'B.5 Guru Melaksanakan Penilaian Autentik', 24, 'F3_B501', 'Mengamati sikap dan perilaku peserta didik dalam mengikuti pelajaran'),
 (3, 'B.5 Guru Melaksanakan Penilaian Autentik', 25, 'F3_B502', 'Melakukan penilaian keterampilan peserta didik dalam melakukan aktivitas individu/kelompok'),
 (3, 'B.5 Guru Melaksanakan Penilaian Autentik', 26, 'F3_B503', 'Mendokumentasikan hasil pengamatan sikap perilaku dan keterampilan peserta didik'),
-
--- B.6 Guru memanfaatkan sumber belajar/media dalam pembelajaran
 (3, 'B.6 Guru Memanfaatkan Sumber Belajar/Media Dalam Pembelajaran', 27, 'F3_B601', 'Menunjukkan keterampilan dalam pemanfaatan sumber belajar'),
 (3, 'B.6 Guru Memanfaatkan Sumber Belajar/Media Dalam Pembelajaran', 28, 'F3_B602', 'Menunjukkan keterampilan dalam penggunaan media pembelajaran'),
 (3, 'B.6 Guru Memanfaatkan Sumber Belajar/Media Dalam Pembelajaran', 29, 'F3_B603', 'Menghasilkan media pembelajaran yang menarik'),
 (3, 'B.6 Guru Memanfaatkan Sumber Belajar/Media Dalam Pembelajaran', 30, 'F3_B604', 'Melibatkan peserta didik dalam pemanfaatan sumber belajar'),
 (3, 'B.6 Guru Memanfaatkan Sumber Belajar/Media Dalam Pembelajaran', 31, 'F3_B605', 'Melibatkan peserta didik dalam pemanfaatan media pembelajaran'),
-
--- B.7 Guru memicu dan/atau memelihara keterlibatan peserta didik dalam pembelajaran
 (3, 'B.7 Guru Memicu/Memelihara Keterlibatan Peserta Didik', 32, 'F3_B701', 'Menumbuhkan partisipasi aktif peserta didik melalui interaksi guru, peserta didik, dan sumber belajar'),
 (3, 'B.7 Guru Memicu/Memelihara Keterlibatan Peserta Didik', 33, 'F3_B702', 'Merespons positif partisipasi peserta didik'),
 (3, 'B.7 Guru Memicu/Memelihara Keterlibatan Peserta Didik', 34, 'F3_B703', 'Menunjukkan sikap terbuka terhadap respons peserta didik'),
 (3, 'B.7 Guru Memicu/Memelihara Keterlibatan Peserta Didik', 35, 'F3_B704', 'Menunjukkan hubungan pribadi yang kondusif'),
 (3, 'B.7 Guru Memicu/Memelihara Keterlibatan Peserta Didik', 36, 'F3_B705', 'Menumbuhkan keceriaan dan antusiasme peserta didik dalam pembelajaran'),
-
--- B.8 Guru menggunakan bahasa yang benar dan tepat dalam pembelajaran
 (3, 'B.8 Guru Menggunakan Bahasa yang Benar dan Tepat', 37, 'F3_B801', 'Menggunakan bahasa lisan secara jelas dan lancar'),
 (3, 'B.8 Guru Menggunakan Bahasa yang Benar dan Tepat', 38, 'F3_B802', 'Menggunakan bahasa tulis yang baik dan benar'),
 (3, 'B.8 Guru Menggunakan Bahasa yang Benar dan Tepat', 39, 'F3_B803', 'Menyampaikan pesan dan gaya yang sesuai'),
-
--- C. Kegiatan Penutup
 (3, 'C. Kegiatan Penutup', 40, 'F3_C101', 'Melakukan refleksi secara efektif'),
 (3, 'C. Kegiatan Penutup', 41, 'F3_C102', 'Memberikan tindak lanjut');
 
--- Populate Form 4 Indikator
+/* Populate Form 4 Indikator */
 DELETE FROM `supervisi_indikator` WHERE `form_id` = 4;
+
 INSERT INTO `supervisi_indikator` (`form_id`, `sub_bagian`, `nomor_urut`, `kode_indikator`, `nama_indikator`) VALUES
 (4, 'Instrumen Penilaian', 1, 'F4_01', 'Buku Nilai'),
 (4, 'Instrumen Penilaian', 2, 'F4_02a', 'Melakukan Tes - Penilaian Harian (PH)'),
@@ -165,7 +152,7 @@ INSERT INTO `supervisi_indikator` (`form_id`, `sub_bagian`, `nomor_urut`, `kode_
 (4, 'Instrumen Penilaian', 19, 'F4_08', 'Analisis PH, PTS, PAS, dan PAT'),
 (4, 'Instrumen Penilaian', 20, 'F4_09', 'Bank Soal');
 
--- 4. Create Main Supervisi Table
+/* 4. Create Main Supervisi Table */
 CREATE TABLE IF NOT EXISTS `supervisi` (
   `id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   `uuid` VARCHAR(36) NOT NULL UNIQUE,
@@ -202,7 +189,7 @@ CREATE TABLE IF NOT EXISTS `supervisi` (
   FOREIGN KEY (`form_id`) REFERENCES `supervisi_form` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- 5. Create Supervisi Detail Table
+/* 5. Create Supervisi Detail Table */
 CREATE TABLE IF NOT EXISTS `supervisi_detail` (
   `id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   `supervisi_id` INT UNSIGNED NOT NULL,
@@ -214,7 +201,7 @@ CREATE TABLE IF NOT EXISTS `supervisi_detail` (
   FOREIGN KEY (`indikator_id`) REFERENCES `supervisi_indikator` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- 6. Create Supervisi Histori Table
+/* 6. Create Supervisi Histori Table */
 CREATE TABLE IF NOT EXISTS `supervisi_histori` (
   `id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   `supervisi_id` INT UNSIGNED NOT NULL,
@@ -227,7 +214,7 @@ CREATE TABLE IF NOT EXISTS `supervisi_histori` (
   FOREIGN KEY (`supervisi_id`) REFERENCES `supervisi` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- 7. Create Supervisi Notifikasi Table
+/* 7. Create Supervisi Notifikasi Table */
 CREATE TABLE IF NOT EXISTS `supervisi_notifikasi` (
   `id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   `user_id` INT UNSIGNED NOT NULL,
@@ -238,3 +225,5 @@ CREATE TABLE IF NOT EXISTS `supervisi_notifikasi` (
   `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (`supervisi_id`) REFERENCES `supervisi` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+SET FOREIGN_KEY_CHECKS = 1;
