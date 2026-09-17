@@ -1,0 +1,15 @@
+# Sensitive Google Drive Credentials
+application/config/google_drive_credentials.json
+.env
+
+# CodeIgniter 3 cache & logs
+application/logs/*.php
+!application/logs/index.html
+application/cache/*
+!application/cache/index.html
+
+# Local Uploads temp
+assets/uploads/*
+!assets/uploads/index.html
+
+*.zip

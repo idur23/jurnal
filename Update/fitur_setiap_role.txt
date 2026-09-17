@@ -1,0 +1,90 @@
+================================================================================
+DOKUMENTASI DAFTAR FITUR BERDASARKAN ROLE PENGGUNA
+APLIKASI JURNAL GURU ENTERPRISE (MA DARUL FAQIH)
+================================================================================
+
+Aplikasi Jurnal Guru Enterprise memiliki 5 Role Pengguna utama dengan pembagian 
+fitur yang spesifik dan terintegrasi untuk mendukung kegiatan belajar mengajar (KBM):
+
+--------------------------------------------------------------------------------
+1. ADMINISTRATOR / SUPER ADMIN (Role ID: 1 / 6)
+--------------------------------------------------------------------------------
+Memiliki hak akses penuh untuk mengelola master data, konfigurasi sistem, audit log,
+dan memantau seluruh aktivitas akademik.
+Fitur Utama:
+- Dasbor Admin: Statistik jumlah guru, siswa, kelas, mapel, dan total jurnal hari ini.
+- Manajemen Jurnal Guru: Memantau, meninjau, dan menghapus data jurnal KBM semua guru.
+- Manajemen Jadwal Pelajaran: Mengatur jadwal mengajar (Hari, Guru, Mapel, Kelas, Jam, Ruangan).
+- Manajemen Presensi Kelas: Memantau log presensi harian seluruh kelas.
+- Manajemen Penilaian Siswa: Melihat rekapitulasi nilai siswa per mata pelajaran.
+- Perkembangan Diri Siswa: Melihat ringkasan grafik aspek perkembangan diri siswa.
+- Karya Pembelajaran: Melihat portofolio karya kreatif guru dan siswa.
+- Perangkat Ajar: Meninjau, memverifikasi, dan mengunduh dokumen perangkat ajar guru.
+- Pusat Laporan & Export Data:
+  * Cetak/Preview Jurnal Guru (Filter Kelas, Mapel, dan Rentang Tanggal).
+  * Rekapitulasi Presensi Kehadiran Siswa bulanan.
+  * Rekapitulasi Jurnal Penanganan Kasus Siswa.
+  * Rapor Perkembangan Diri Siswa (PDF Landscape/Portrait).
+- Master Data:
+  * Tahun Pelajaran: Mengatur semester aktif (Ganjil/Genap) dan tahun pelajaran berjalan.
+  * Data Kelas: Mengelola kelas, tingkat, nilai KKM kelas, dan menetapkan Wali Kelasnya.
+  * Data Ruangan: Mengelola ruang belajar/kelas dan laboratorium.
+  * Mata Pelajaran: Mengelola nama mata pelajaran, kode mapel, dan KKM bawaan.
+  * Jam Pelajaran: Mengatur slot waktu jam ke-1, ke-2, dst beserta durasi jam KBM.
+  * Data Guru: Mengelola NIP, nama lengkap, gelar, mapel diampu, status kepegawaian (PNS/PPPK/GTY/GTT/Honorer), serta membuat akun login & menentukan role hak aksesnya.
+  * Data Siswa: Mengelola NIS, NISN, kelas, jenis kelamin, status aktif, serta fitur Import data siswa masal dari Microsoft Excel.
+- Audit Trail & Activity Logs: Memantau riwayat log aktivitas user secara mendetail (Nama, Aksi, Deskripsi, IP Address, Browser, & Waktu kejadian) untuk audit keamanan.
+- Pengaturan Sistem & Kop Laporan:
+  * Mengedit Nama Aplikasi, Nama Sekolah, Alamat Sekolah & Kontak.
+  * Upload Logo Aplikasi (Sidebar) dan Favicon Aplikasi.
+  * Upload Logo KOP Kiri & Logo KOP Kanan untuk Kop Surat Cetakan Rapor/Laporan.
+  * Menentukan Sub-judul Kop Surat dan Kota Penandatanganan Laporan.
+
+--------------------------------------------------------------------------------
+2. GURU MATA PELAJARAN (Role ID: 2)
+--------------------------------------------------------------------------------
+Memiliki hak akses untuk mencatat aktivitas KBM harian, presensi, penilaian, dan 
+mengunggah administrasi mengajar.
+Fitur Utama:
+- Dasbor Guru: Ringkasan jadwal mengajar hari ini dan pengisian jurnal KBM terkini.
+- Input Jurnal Guru (KBM): Mencatat tanggal, kelas, mapel, jam mengajar, materi yang diajarkan, indikator/tujuan pembelajaran, hambatan & solusi, status pembelajaran (Terlaksana/Tidak/Daring/Luring/dll), serta mengunggah foto dokumentasi kegiatan pembelajaran kelas.
+- Jadwal Mengajar: Melihat daftar jadwal mengajar yang ditugaskan pada semester aktif.
+- Presensi Kelas: Mencatat kehadiran siswa per pertemuan kelas (Hadir, Sakit, Izin, Alpa, Dispen).
+- Input Penilaian Siswa: Menginput nilai siswa per kelas & mapel berdasarkan kategori (Tugas, Ulangan Harian, PTS, PAS) secara manual atau via Import file Excel.
+- Upload Karya Pembelajaran: Mengunggah dokumentasi/link karya pembelajaran kreatif guru/siswa.
+- Perangkat Ajar: Mengunggah berkas administrasi mengajar (RPP, Silabus, Prota, Promes, Kriteria Kelulusan) untuk ditinjau dan disetujui oleh Waka Kurikulum.
+
+--------------------------------------------------------------------------------
+3. WALI KELAS (Role ID: 3)
+--------------------------------------------------------------------------------
+Memiliki hak akses pembinaan kelas binaan, mengelola kasus siswa, dan menerbitkan 
+Rapor Perkembangan Diri Siswa.
+Fitur Utama:
+- Dasbor Wali Kelas: Grafik kehadiran kelas binaan, total program kerja, dan statistik kasus siswa.
+- Jurnal Program Kerja Wali Kelas: Mencatat rencana, uraian kegiatan pembinaan kelas, tindak lanjut, serta foto dokumentasi kegiatan kelas binaan.
+- Jurnal Penanganan Kasus Siswa: Mencatat penanganan siswa bermasalah (Siswa, Tanggal, Kategori, Permasalahan, Tindakan/Solusi, Hasil Akhir, RTL, dan Status Kasus).
+- Monitoring & Rekap Kehadiran: Memantau persentase kehadiran harian siswa binaan serta mengunduh Rekapitulasi Presensi Kehadiran Bulanan Kelas.
+- Cetak Rapor Perkembangan Diri Siswa:
+  * Menginput nilai aspek perkembangan kepribadian siswa (Perilaku, Keaktifan, Kedisiplinan, Motivasi, Catatan Wali Kelas).
+  * Mengunduh/mencetak Rapor Perkembangan Diri Siswa (Format PDF) lengkap dengan KOP Surat dinamis, logo kiri-kanan, dan tanda tangan wali kelas.
+- Projek Kokurikuler (P5): Mencatat projek profil Pancasila kelas (Tema, Nama Projek, Deskripsi Kegiatan, dan Wali Kelas sebagai Guru Pendamping).
+
+--------------------------------------------------------------------------------
+4. KEPALA MADRASAH / KAMAD (Role ID: 4)
+--------------------------------------------------------------------------------
+Memiliki hak akses read-only untuk memantau kinerja akademik dan kehadiran sekolah.
+Fitur Utama:
+- Dasbor Monitoring: Memantau ringkasan persentase KBM terlaksana hari ini.
+- Monitoring Jurnal Guru: Membaca seluruh data jurnal KBM harian guru secara real-time.
+- Monitoring Kehadiran Kelas: Melihat persentase kehadiran siswa di seluruh kelas.
+- Unduh Laporan: Mengunduh rekapitulasi data jurnal guru dan rekap presensi kelas.
+
+--------------------------------------------------------------------------------
+5. WAKA KURIKULUM (Role ID: 5)
+--------------------------------------------------------------------------------
+Memiliki hak akses evaluasi mutu pembelajaran dan verifikasi administrasi mengajar.
+Fitur Utama:
+- Dasbor Evaluasi: Memantau tingkat pengisian jurnal KBM guru dan status perangkat ajar.
+- Verifikasi Perangkat Ajar: Meninjau, mengunduh, dan memberikan persetujuan (Approve/Reject) terhadap dokumen administrasi mengajar (RPP/Silabus) yang diunggah oleh guru.
+- Monitoring Pembelajaran: Memantau keselarasan materi KBM harian guru di setiap kelas.
+================================================================================

@@ -1,0 +1,12 @@
+{
+    "config": {
+        "platform-check": false,
+        "platform": {
+            "php": "8.2.32"
+        }
+    },
+    "require": {
+        "phpoffice/phpspreadsheet": "^5.9",
+        "dompdf/dompdf": "^3.1"
+    }
+}
