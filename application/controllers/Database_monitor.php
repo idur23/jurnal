@@ -263,5 +263,39 @@ class Database_monitor extends Admin_Controller {
         echo "   ALL TESTS COMPLETED SUCCESSFULLY!\n";
         echo "========================================================\n";
     }
+
+    /**
+     * CLI Export DB Structure update SQL file
+     */
+    public function export_structure_sql() {
+        if (!is_cli()) return;
+
+        $db_name = $this->db->database;
+        $tables = array('sys_slow_queries', 'sys_performance_logs', 'system_settings', 'activity_logs');
+
+        $sql = "-- ========================================================\n";
+        $sql .= "-- DATABASE STRUCTURE UPDATE: MONITORING & BACKUP MODULE\n";
+        $sql .= "-- Database Name: {$db_name}\n";
+        $sql .= "-- Created Date: " . date('Y-m-d H:i:s') . "\n";
+        $sql .= "-- ========================================================\n\n";
+        $sql .= "SET FOREIGN_KEY_CHECKS = 0;\n\n";
+
+        foreach ($tables as $t) {
+            if ($this->db->table_exists($t)) {
+                $row = $this->db->query("SHOW CREATE TABLE `{$t}`")->row_array();
+                if (isset($row['Create Table'])) {
+                    $create = $row['Create Table'];
+                    $create = preg_replace('/CREATE TABLE/', 'CREATE TABLE IF NOT EXISTS', $create, 1);
+                    $sql .= "-- Structure for table: {$t}\n";
+                    $sql .= $create . ";\n\n";
+                }
+            }
+        }
+
+        $sql .= "SET FOREIGN_KEY_CHECKS = 1;\n";
+
+        file_put_contents(FCPATH . 'update_db_structure.sql', $sql);
+        echo "[+] File update_db_structure.sql berhasil dibuat.\n";
+    }
 }
 
