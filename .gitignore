@@ -12,4 +12,9 @@ application/cache/*
 assets/uploads/*
 !assets/uploads/index.html
 
+# Database Backups
+database/backups/*
+!database/backups/.htaccess
+
 *.zip
+

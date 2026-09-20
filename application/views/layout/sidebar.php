@@ -340,6 +340,12 @@ $sub_segment = $this->uri->segment(2);
             <span class="nav-link-title text-indigo">System Monitor</span>
           </a>
         </li>
+        <li class="nav-item <?= ($uri_segment == 'database_monitor') ? 'active' : '' ?>">
+          <a class="nav-link" href="<?= base_url('database_monitor') ?>">
+            <span class="nav-link-icon me-2 text-purple"><i class="ti ti-database-import"></i></span>
+            <span class="nav-link-title text-purple font-weight-bold">Monitoring & Backup DB</span>
+          </a>
+        </li>
         <li class="nav-item <?= ($uri_segment == 'google_drive_sync') ? 'active' : '' ?>">
           <a class="nav-link" href="<?= base_url('google_drive_sync') ?>">
             <span class="nav-link-icon me-2 text-success"><i class="ti ti-brand-google-drive"></i></span>

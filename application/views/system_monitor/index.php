@@ -9,6 +9,9 @@
         <div class="text-muted mt-1">Real-time resource utilization, database size, slow queries, and execution logs.</div>
       </div>
       <div class="col-auto ms-auto d-print-none">
+        <a href="<?= base_url('database_monitor') ?>" class="btn btn-purple me-2">
+          <i class="ti ti-database-import me-2"></i> Monitoring & Backup DB
+        </a>
         <button onclick="window.location.reload();" class="btn btn-primary">
           <i class="ti ti-refresh me-2"></i> Refresh Data
         </button>

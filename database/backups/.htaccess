@@ -1,0 +1,2 @@
+# Restrict direct web access to database backups
+Deny from all

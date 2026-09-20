@@ -78,6 +78,15 @@ $route['settings'] = 'settings/index';
 $route['system_monitor'] = 'system_monitor/index';
 $route['system_monitor/get_performance_stats_ajax'] = 'system_monitor/get_performance_stats_ajax';
 
+// Unified Database Monitor & Backup routes
+$route['database_monitor'] = 'database_monitor/index';
+$route['database_monitor/do_backup'] = 'database_monitor/do_backup';
+$route['database_monitor/download/(.+)'] = 'database_monitor/download/$1';
+$route['database_monitor/restore'] = 'database_monitor/restore';
+$route['database_monitor/delete/(.+)'] = 'database_monitor/delete/$1';
+$route['database_monitor/optimize/(.+)'] = 'database_monitor/optimize/$1';
+
 // Fallback Media Route for missing local uploads -> Google Drive
 $route['assets/uploads/(.+)'] = 'media/serve/$1';
+
 
